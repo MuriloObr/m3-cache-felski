@@ -14,11 +14,12 @@ da nota está em medir e explicar o efeito de cada decisão de projeto, não no 
 
 ## Estado atual
 
-- O repositório contém apenas `docs/ATIVIDADE.pdf`.
-- Ainda não há simulador, traços, gabaritos nem relatório.
-- As pastas `calibracao/` (traços C1–C4 e arquivos de resposta) e `experimentos/` (traços
-  E1–E6) citadas no enunciado não estão no repositório; obter no AVA/materiais da disciplina.
-- Linguagem de implementação e formato da interface ainda não definidos.
+- Simulador em Python 3 (apenas biblioteca padrão) na raiz: `simulador.py` e os módulos
+  `parametros.py`, `traco.py`, `cache.py`, `simulacao.py` e `formatacao.py`.
+- `docs/calibracao/` (C1–C4 com gabaritos) e `docs/experimentos/` (E1–E6) estão no repositório.
+- Os quatro gabaritos de calibração são reproduzidos byte a byte e cobertos por testes de ouro
+  (`python3 -m unittest discover -v`).
+- Experimentos E1–E6, desafio, folha de previsões e relatório ainda pendentes.
 
 ## Entregáveis
 
