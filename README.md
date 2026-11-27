@@ -37,3 +37,12 @@ python3 -m unittest discover -v
 
 Os testes atravessam a fronteira do processo e comparam byte a byte a saída do
 simulador com os quatro gabaritos de `docs/calibracao/`.
+
+A associatividade usa LRU por conjunto: acertos e preenchimentos renovam o uso
+da via, e a substituição escolhe a via menos recentemente usada. Os testes de
+semântica verificam a vítima e o acerto no acesso 5 do C2 (que distingue LRU de
+FIFO), a independência dos conjuntos e configurações de 2 a 16 vias:
+
+```sh
+python3 -m unittest tests.test_associatividade_lru -v
+```
