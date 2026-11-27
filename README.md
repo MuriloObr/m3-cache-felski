@@ -46,3 +46,18 @@ FIFO), a independência dos conjuntos e configurações de 2 a 16 vias:
 ```sh
 python3 -m unittest tests.test_associatividade_lru -v
 ```
+
+As duas políticas de escrita usam write-allocate: uma escrita que falta lê o
+bloco inteiro. Em WB, a escrita marca o bloco como modificado; sua expulsão
+grava o bloco inteiro e aparece como `(writeback)` na saída. O resumo separa
+esses writebacks da descarga final, que percorre conjuntos e vias em ordem.
+Em WT, cada escrita envia 4 bytes à memória e nenhum bloco fica modificado.
+A política altera o tráfego de escrita, mantendo os mesmos acertos e faltas.
+
+Os testes de semântica cobrem alocação em escrita, bit de modificação, expulsão
+durante o traço e descarga final em múltiplos conjuntos e vias. O teste de ouro
+do C3 compara as saídas de WB e WT byte a byte com as duas seções do gabarito:
+
+```sh
+python3 -m unittest tests.test_politicas_escrita tests.test_calibracao_c2_c4 -v
+```
