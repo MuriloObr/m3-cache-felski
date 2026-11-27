@@ -29,7 +29,33 @@ tipo da falta, bloco expulso e writeback) e um resumo. Parâmetros impossíveis 
 traços malformados terminam com código de saída diferente de zero e mensagem
 com a linha do erro.
 
+## Calibração obrigatória
+
+Antes de executar qualquer experimento, rode na raiz do projeto:
+
+```sh
+python3 calibrar.py
+```
+
+O comando usa somente Python 3 e a biblioteca padrão. Executa C1 (128 B,
+bloco 16 B, 1 via, WB), C2 (64 B, bloco 16 B, 2 vias, WB), C3 (64 B,
+bloco 16 B, 1 via, WB e WT) e C4 (64 B, bloco 16 B, 1 via, WB).
+Nenhum traço de experimento é executado.
+
+As quatro respostas ficam em `resultados/calibracao/*_obtido.txt`. O C3 reúne
+WB e WT em um arquivo: após a saída WB, acrescenta uma linha em branco,
+70 sinais de igual e outra linha em branco antes da saída WT.
+
+Cada resposta é comparada byte a byte com seu gabarito em `docs/calibracao/`,
+incluindo espaços e quebras de linha. Sucesso termina com código 0; qualquer
+divergência ou erro termina com código 1. Uma divergência mostra o diff e a
+posição do primeiro byte diferente. Os outros casos continuam sendo verificados.
+Os arquivos de resposta são sobrescritos a cada execução; os gabaritos são
+apenas lidos. Só prossiga para os experimentos quando os quatro forem aprovados.
+
 ## Testes
+
+Execute também a suíte de contrato, semântica e determinismo:
 
 ```sh
 python3 -m unittest discover -v
