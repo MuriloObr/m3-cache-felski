@@ -61,3 +61,17 @@ do C3 compara as saídas de WB e WT byte a byte com as duas seções do gabarito
 ```sh
 python3 -m unittest tests.test_politicas_escrita tests.test_calibracao_c2_c4 -v
 ```
+
+A classificação usa uma cache auxiliar totalmente associativa LRU, com a mesma
+capacidade e o mesmo bloco da cache configurada. Ela recebe todos os acessos,
+inclusive os acertos, e não aparece na saída. O primeiro acesso a um bloco é
+compulsório; nas demais faltas, um acerto na auxiliar indica conflito e uma
+falta nela indica capacidade.
+
+Os testes verificam a atualização do LRU auxiliar tanto nos acertos da cache
+configurada quanto nas faltas que acertam na auxiliar, a classificação por bloco,
+os acessos 8 e 9 do C4 e a soma dos contadores:
+
+```sh
+python3 -m unittest tests.test_classificacao_faltas tests.test_calibracao_c2_c4 -v
+```
